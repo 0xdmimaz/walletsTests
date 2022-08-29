@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --timeout 300000 --file test/**/**.js --jobs 1",
     "swap-positive": "mocha --timeout 30000 --file test/smoke/swap-positive.js",
-    "robot-smoke": "mocha --timeout 30000 --file test/smoke/robot.js"
+    "robot-smoke": "mocha --timeout 30000 --file test/smoke/teleport.js"
   },
   "keywords": [],
   "author": "",

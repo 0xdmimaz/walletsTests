@@ -14,5 +14,7 @@ module.exports = {
   wasIncludedTxt: "was included in the block",
   wasIncludedTxtId: "//div[contains(text(), 'was included in the block')]",
   fuckBTNText: "Fuck Google",
-  fuckBtnId: "//button[contains(text(), 'Fuck Google')]"
+  fuckBtnId: "//button[contains(text(), 'Fuck Google')]",
+  purposeSell: "sell",
+  purposeBuy: "buy"
 }

@@ -37,17 +37,48 @@ let openNewTab = async (driver) => {
   await driver.switchTo().newWindow('tab');
 };
 
-let locateSellNets = async (driver) => {
+let locateSellNets = async (driver, purpose) => {
   await driver.sleep(2000);
   await driver.executeScript(`let getElementByXpath=function(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;};
   getElementByXpath('//div[contains(text(), "sell")]').parentElement.querySelector("div[class*='dropDown'] div[class*='dropDownContainerHeader']").click()`);
 
   await driver.sleep(600);
   try {
-    let sellNets = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
-    await console.log('sellNets',sellNets);
+    let nets = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
+    await console.log('sellNets',nets);
     await driver.navigate().refresh();
-    return sellNets;
+    return nets;
+  } catch (e) {
+    console.log('err',e);
+  }
+}
+
+let locateSellTokens = async (driver, purpose) => {
+  await driver.sleep(3000);
+  await driver.executeScript(`let getElementByXpath=function(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;};
+  getElementByXpath('//div[contains(text(), "sell")]').parentElement.querySelectorAll("div[class*='dropDown']")[4].querySelector("div[class*='dropDownContainerHeader']").click()`);
+
+  await driver.sleep(600);
+  let tokens = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
+  await console.log(tokens);
+  return tokens;
+};
+
+let chooseSellToken = async (driver, token) => {
+  await driver.wait(until.elementLocated(By.xpath("//div[contains(text(), ${purpose})]//following::span[contains(text(), ${tokens)]")))
+};
+
+let locateBuyNets = async (driver, purpose) => {
+  await driver.sleep(2000);
+  await driver.executeScript(`let getElementByXpath=function(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;};
+  getElementByXpath('//div[contains(text(), "buy")]').parentElement.querySelector("div[class*='dropDown'] div[class*='dropDownContainerHeader']").click()`);
+
+  await driver.sleep(600);
+  try {
+    let nets = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
+    await console.log('sellNets',nets);
+    await driver.navigate().refresh();
+    return nets;
   } catch (e) {
     console.log('err',e);
   }
@@ -59,10 +90,20 @@ let locateBuyTokens = async (driver) => {
   getElementByXpath('//div[contains(text(), "buy")]').parentElement.querySelectorAll("div[class*='dropDown']")[4].querySelector("div[class*='dropDownContainerHeader']").click()`);
 
   await driver.sleep(600);
-  let sellTokents = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
-  await console.log(sellTokents);
-  return sellTokents;
-}
+  let tokens = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
+  return tokens;
+};
+
+let chooseBuyToken = async (driver, x) => {
+  //console.log("ТРУЛЯЛЯ");
+  let tokens = await locateBuyTokens(driver);
+  let el = await tokens[Object.keys(tokens)[x]];
+  let path = "//div[contains(text(), 'buy')]//following::span[contains(text(), " + "'" + el.name + "'" + ")]";
+  //await console.log(path);
+  //await console.log('TOKENS \n', tokens);
+  let token = await driver.wait(until.elementLocated(By.xpath(path)), 10000);
+  return token;
+};
 
 let setTokenAmount = async (driver) => {
   await driver.wait(until.elementLocated(
@@ -90,7 +131,7 @@ let getTxUrl = async (driver) => {
 let setPassword = async (driver) => {
   let passwordId = "password";
   const passwdBtn = await driver.wait(
-    until.elementLocated(By.name(passwordId))
+    until.elementLocated(By.name(passwordId)), 10000
   );
   await passwdBtn.sendKeys(keplrPassword, Key.ENTER);
   await driver.close();
@@ -115,7 +156,7 @@ let connectWalletToApp = async (driver) => {
 let setPassword2 = async (driver) => {
   let passwordId = "password";
   const passwdBtn = await driver.wait(
-    until.elementLocated(By.name(passwordId))
+    until.elementLocated(By.name(passwordId)), 10000
   );
   await driver.sleep(3000);
   await passwdBtn.sendKeys(keplrPassword, Key.ENTER);
@@ -180,7 +221,7 @@ let ensureElPresentDOM = async (driver, elId) => {
 
 let closeWindow = async (driver) => {
   await driver.quit();
-}
+};
 
 module.exports = {
   getElAttrValue: getElAttrValue,
@@ -202,9 +243,13 @@ module.exports = {
   switchToOriginalWindow: switchToOriginalWindow,
   openNewTab: openNewTab,
   locateSellNets: locateSellNets,
-  locateBuyTokens: locateBuyTokens,
+  locateSellTokens: locateSellTokens,
   setTokenAmount: setTokenAmount,
   switchToOriginalWindow2: switchToOriginalWindow2,
   submitSwap: submitSwap,
-  getTxUrl: getTxUrl
+  getTxUrl: getTxUrl,
+  chooseSellToken: chooseSellToken,
+  locateBuyNets: locateBuyNets,
+  locateBuyTokens: locateBuyTokens,
+  chooseBuyToken: chooseBuyToken
 }

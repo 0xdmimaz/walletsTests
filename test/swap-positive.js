@@ -11,14 +11,14 @@ const {applyBtnId} = require('../wallets/keplr/pages/keplr');
 const {
   getElAttrValue, clickOnElement, getElText, ensureOneWindowsOpen, ensureElPresentDOM,
   closeWindow, checkWindowHandle, navigateToUrl, switchToNewWindow, switchToOriginalWindow2,
-  setPassword, setTokenAmount, switchToOriginalWindow,
+  setPassword, setTokenAmount, switchToOriginalWindow, locateBuyTokens, chooseBuyToken
 } = require('../wallets/libs/webdriverRelated');
 
 const {takeScreenshot} = require('../wallets/libs/fsRelated');
 let driver = new driverModule(profilePath, appPath);
 let defaultWindow;
 
-describe('Full positive scenario."space-pussy-1" + "BOOT" -> "space-pussy-1" + "H"', () => {
+describe.skip('Full positive scenario."space-pussy-1" + "BOOT" -> "space-pussy-1" + "H"', () => {
 
   before(async () => {
     defaultWindow = await checkWindowHandle(driver.getDriver());
@@ -70,6 +70,23 @@ describe('Full positive scenario."space-pussy-1" + "BOOT" -> "space-pussy-1" + "
   })
 
   after(async () => {
-    //await closeWindow(driver.getDriver());
+    await closeWindow(driver.getDriver());
+  })
+});
+
+describe('Positive. Swap tokens "BOOT -> *" (except BOOT -> H) inside "Cyber-testnet"  ', () => {
+  before(async () => {
+    defaultWindow = await checkWindowHandle(driver.getDriver());
+    await navigateToUrl(driver.getDriver(), robot);
+    await switchToNewWindow(driver.getDriver(), defaultWindow);
+    await setPassword(driver.getDriver());
+    await switchToOriginalWindow(driver.getDriver(), defaultWindow, []);
+    await navigateToUrl(driver.getDriver(), teleport);
+  });
+
+  it('tokens[0]', async () => {
+    let el = await chooseBuyToken(driver.getDriver(), '0');
+    await console.log(el);
+    //await clickOnElement(driver.getDriver(), await chooseBuyToken(driver.getDriver(), '0'));
   })
 })

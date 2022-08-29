@@ -16,5 +16,6 @@ module.exports = {
   fuckBTNText: "Fuck Google",
   fuckBtnId: "//button[contains(text(), 'Fuck Google')]",
   purposeSell: "sell",
-  purposeBuy: "buy"
+  purposeBuy: "buy",
+  continueBtnId: "//*[@id='root']/div[2]//button[contains(text(), 'Continue')]"
 }

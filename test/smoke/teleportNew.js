@@ -27,55 +27,57 @@ describe('add()', async () => {
   let tokensArr0;
   let tokensArr1;
   let netArr;
+  await console.log('Let the abuse begin...')
 
-  // before(async () => {
+  before( async() => {
+    await console.log('Let the abuse begin...');
+
+  });
+
+  // defaultWindow = await checkWindowHandle(driver.getDriver());
+  // await console.log('ORIGINAL WINDOW HANDLE \n', defaultWindow);
+  // await navigateToUrl(driver.getDriver(), robot);
+  // let windows = await switchToNewWindow(driver.getDriver(), defaultWindow);
+  // await console.log("WINDOWS HANDLES\n", windows);
+  // await setPassword(driver.getDriver());
+  // await switchToOriginalWindow(driver.getDriver(), defaultWindow, []);
+  // await navigateToUrl(driver.getDriver(), teleport);
+  // await console.log("WINDOWS HANDLES\n", windows);
   //
-  // });
-
-  defaultWindow = await checkWindowHandle(driver.getDriver());
-  await console.log('ORIGINAL WINDOW HANDLE \n', defaultWindow);
-  await navigateToUrl(driver.getDriver(), robot);
-  let windows = await switchToNewWindow(driver.getDriver(), defaultWindow);
-  await console.log("WINDOWS HANDLES\n", windows);
-  await setPassword(driver.getDriver());
-  await switchToOriginalWindow(driver.getDriver(), defaultWindow, []);
-  await navigateToUrl(driver.getDriver(), teleport);
-  await console.log("WINDOWS HANDLES\n", windows);
-
-  networks = await locateSellNets(driver.getDriver());
-  tokens = await locateSellTokens(driver.getDriver());
-  tokens1 = await locateSellTokens(driver.getDriver());
-
-  await console.log('NETWORKS \n', networks);
-  await console.log('TOKENS \n', tokens);
-  await console.log('TOKENS \n', tokens1);
-  await console.log('/////////////////////');
-
-  netArr = Array.from(networks.name);
-  tokensArr0 = Array.from(tokens.name);
-  tokensArr1 = Array.from(tokens1.name);
-
-  await console.log(tokensArr0);
-  await console.log(tokensArr1);
-  await console.log('/////////////////////');
+  // networks = await locateSellNets(driver.getDriver());
+  // tokens = await locateSellTokens(driver.getDriver());
+  // tokens1 = await locateSellTokens(driver.getDriver());
+  //
+  // await console.log('NETWORKS \n', networks);
+  // await console.log('TOKENS \n', tokens);
+  // await console.log('TOKENS \n', tokens1);
+  // await console.log('/////////////////////');
+  //
+  // netArr = Array.from(networks.name);
+  // tokensArr0 = Array.from(tokens.name);
+  // tokensArr1 = Array.from(tokens1.name);
+  //
+  // await console.log(tokensArr0);
+  // await console.log(tokensArr1);
+  // await console.log('/////////////////////');
 
   tokensArr0.forEach((tokensArr0) => {
     console.log(tokensArr0);
     tokensArr1.forEach((tokensArr1) => {
       console.log(tokensArr1);
-      it('Swap token from: ${token.name}, to: ${token2.name}', async () => {
-        await chooseSellToken(driver.getDriver(), tokensArr0);
-        await chooseBuyToken(driver.getDriver(), tokensArr1);
-        await clearTokenAmount(driver.getDriver());
-        await setTokenAmount(driver.getDriver(), '100');
-        await chooseBtnClick(driver.getDriver());
-        await switchToNewWindow(driver.getDriver(), defaultWindow);
-        await takeScreenshot(driver.getDriver());
-        await clickOnElement(driver.getDriver(), applyBtnId);
-        await switchToOriginalWindow2(driver.getDriver(), defaultWindow);
-        let el = await ensureElPresentDOM(driver.getDriver(), txUrlId);
-        await assert.equal(el, true);
-        await clickOnElement(driver.getDriver(), fuckBtnId);
+      it('Swap token from: ${token.name}, to: ${token2.name}', () => {
+        // await chooseSellToken(driver.getDriver(), tokensArr0);
+        // await chooseBuyToken(driver.getDriver(), tokensArr1);
+        // await clearTokenAmount(driver.getDriver());
+        // await setTokenAmount(driver.getDriver(), '100');
+        // await chooseBtnClick(driver.getDriver());
+        // await switchToNewWindow(driver.getDriver(), defaultWindow);
+        // await takeScreenshot(driver.getDriver());
+        // await clickOnElement(driver.getDriver(), applyBtnId);
+        // await switchToOriginalWindow2(driver.getDriver(), defaultWindow);
+        // let el = await ensureElPresentDOM(driver.getDriver(), txUrlId);
+        // await assert.equal(el, true);
+        // await clickOnElement(driver.getDriver(), fuckBtnId);
       });
     });
   });

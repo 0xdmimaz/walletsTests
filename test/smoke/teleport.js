@@ -17,6 +17,7 @@ let driver = new driverModule(profilePath, appPath);
 let defaultWindow;
 
 describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
+
   before(async () => {
     defaultWindow = await checkWindowHandle(driver.getDriver());
     await navigateToUrl(driver.getDriver(), robot);

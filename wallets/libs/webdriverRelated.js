@@ -41,24 +41,22 @@ let openNewTab = async (driver) => {
   await driver.switchTo().newWindow('tab');
 };
 
-let locateSellNets = async (driver, purpose) => {
-  await driver.sleep(2000);
+let locateSellNets = async (driver) => {
+  await driver.sleep(4000);
   await driver.executeScript(`let getElementByXpath=function(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;};
   getElementByXpath('//div[contains(text(), "sell")]').parentElement.querySelector("div[class*='dropDown'] div[class*='dropDownContainerHeader']").click()`);
 
   await driver.sleep(600);
   try {
     let nets = await driver.executeScript(`return window.sellTokens=(function(){let ar={};document.querySelectorAll('[class*="dropDownList"] div[class*="listItem"]').forEach(function(el){console.log(el);let z=el.querySelectorAll("div");let f=(z.length>4 ? z[4] : z[3]);ar[f.innerText]={'name': f.innerText, 'el': f}}); return ar})()`);
-    await console.log('sellNets',nets);
-    await driver.navigate().refresh();
     return nets;
   } catch (e) {
     console.log('err',e);
   }
 }
 
-let locateSellTokens = async (driver, purpose) => {
-  await driver.sleep(3000);
+let locateSellTokens = async (driver) => {
+  await driver.sleep(4000);
   await driver.executeScript(`let getElementByXpath=function(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;};
   getElementByXpath('//div[contains(text(), "sell")]').parentElement.querySelectorAll("div[class*='dropDown']")[4].querySelector("div[class*='dropDownContainerHeader']").click()`);
 

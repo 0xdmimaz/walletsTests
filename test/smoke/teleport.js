@@ -33,7 +33,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
    *  3 x x
    */
 
-  it('Swaps token 1 to token 2. EXPECTING SUCCESS', async () => {
+  it('Swaps BOOT to H. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 0);
     await chooseBuyToken(driver.getDriver(), 1);
     await clearTokenAmount(driver.getDriver());
@@ -48,7 +48,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 1 to token 3. EXPECTING SUCCESS', async () => {
+  it('Swaps BOOT to A. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 0);
     await chooseBuyToken(driver.getDriver(), 2);
     await clearTokenAmount(driver.getDriver());
@@ -63,7 +63,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 2 to token 1. EXPECTING SUCCESS', async () => {
+  it('Swaps H to BOOT. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 1);
     await chooseBuyToken(driver.getDriver(), 0);
     await clearTokenAmount(driver.getDriver());
@@ -78,7 +78,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 2 to token 3. EXPECTING SUCCESS', async () => {
+  it('Swaps H to A. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 1);
     await chooseBuyToken(driver.getDriver(), 2);
     await clearTokenAmount(driver.getDriver());
@@ -93,7 +93,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 3 to token 1. EXPECTING SUCCESS', async () => {
+  it('Swaps A to BOOT. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 2);
     await chooseBuyToken(driver.getDriver(), 0);
     await clearTokenAmount(driver.getDriver());
@@ -108,7 +108,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 3 to token 2. EXPECTING SUCCESS', async () => {
+  it('Swaps A to H. EXPECTING SUCCESS', async () => {
     await chooseSellToken(driver.getDriver(), 2);
     await chooseBuyToken(driver.getDriver(), 1);
     await clearTokenAmount(driver.getDriver());
@@ -123,7 +123,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await clickOnElement(driver.getDriver(), fuckBtnId);
   });
 
-  it('Swaps token 1 to token 1. EXPECTING ERROR', async () => {
+  it('Swaps BOOT to BOOT. EXPECTING ERROR', async () => {
     await chooseSellToken(driver.getDriver(), 0);
     await chooseBuyToken(driver.getDriver(), 0);
     await clearTokenAmount(driver.getDriver());
@@ -135,7 +135,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await assert.equal(el, true);
   });
 
-  it('Swaps token 2 to token 2. EXPECTING ERROR', async () => {
+  it('Swaps H to H. EXPECTING ERROR', async () => {
     await chooseSellToken(driver.getDriver(), 1);
     await chooseBuyToken(driver.getDriver(), 1);
     await clearTokenAmount(driver.getDriver());
@@ -147,7 +147,7 @@ describe('Positive. Swap tokens inside "Cyber-testnet"  ', () => {
     await assert.equal(el, true);
   });
 
-  it('Swaps token 3 to token 3. EXPECTING ERROR', async () => {
+  it('Swaps A to A. EXPECTING ERROR', async () => {
     await chooseSellToken(driver.getDriver(), 2);
     await chooseBuyToken(driver.getDriver(), 2);
     await clearTokenAmount(driver.getDriver());

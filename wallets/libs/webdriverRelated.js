@@ -1,10 +1,9 @@
 const { until, By, Key } = require("selenium-webdriver");
 const assert = require("assert");
-const {keplrPassword} = require('../../configs/creds');
-const {continueBtnId, fuckBtnId, swapBtnId} = require('../keplr/pages/robot');
-//const _driverEngine = require("../libs/driverEngine");
+const { keplrPassword } = require('../../configs/creds');
+const { continueBtnId, fuckBtnId, swapBtnId } = require('../keplr/pages/robot');
+const { selectNets, tokenNameId } = require('../keplr/pages/warp');
 
-//const engine = new _driverEngine(driver);
 const _wait = 30000;
 
 let checkWindowHandle = async (driver) => {
@@ -152,7 +151,7 @@ let setPassword2 = async (driver) => {
   const passwdBtn = await driver.wait(
     until.elementLocated(By.name(passwordId)), _wait
   );
-  await driver.sleep(3000);
+  await driver.sleep(2500);
   await passwdBtn.sendKeys(keplrPassword, Key.ENTER);
 };
 
@@ -178,11 +177,6 @@ let clickOnElement = async (driver, elId) => {
 let findElement = async (driver, elId) => {
   await driver.wait(until.elementLocated(By.xpath(elId)), _wait);
 };
-
-// let findElementEngineByText = async (driver, elId) => {
-//   let el = await engine.findElement({text: "Continue", tag: "button"}, _wait);
-//   return el;
-// };
 
 let getElText = async (driver, elId) => {
   let el = await driver.wait(until.elementLocated(By.xpath(elId)), _wait).getText();
@@ -210,6 +204,7 @@ let ensureTwoWindowsOpen = async (driver) => {
 };
 
 let ensureElPresentDOM = async (driver, elId) => {
+  await driver.sleep(3000);
   let elem = await driver.wait(until.elementLocated(By.xpath(elId)), _wait);
   if(elem){
     return true;
@@ -236,7 +231,17 @@ let chooseBtnClick = async (driver) => {
   }else {
     await clickOnElement(driver, await findElement(driver, continueBtnId));
   }
-}
+};
+
+let setValueToInput = async (driver, path, value) => {
+  let el = await driver.wait(until.elementLocated(By.xpath(path)), _wait).sendKeys(value);
+};
+
+let uploadFile = async (driver, formId, filePath) => {
+  let el = await driver.findElement(By.xpath(formId));
+  await el.sendKeys(filePath)
+  await driver.sleep(2000);
+};
 
 module.exports = {
   getElAttrValue: getElAttrValue,
@@ -269,5 +274,7 @@ module.exports = {
   chooseBuyToken: chooseBuyToken,
   clearTokenAmount: clearTokenAmount,
   chooseBtnClick: chooseBtnClick,
-  //findElementEngineByText: findElementEngineByText
+  //findElementEngineByText: findElementEngineByText,
+  setValueToInput: setValueToInput,
+  uploadFile: uploadFile,
 }
